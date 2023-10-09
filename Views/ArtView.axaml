@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="MTGArtHarvester.Views.ArtView"
+             xmlns:vm="using:MTGArtHarvester.ViewModels"
+             x:DataType="vm:ArtViewModel">
+  
+  <Border Margin="0 5 0 5">
+    <Grid ColumnDefinitions="125, Auto" RowDefinitions="Auto, Auto, Auto">
+      <Image Source="{Binding MtgCardViewModel.PreviewImage}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+      <TextBlock Margin="5 0 0 0" Text="{Binding MtgCardViewModel.Name}" Grid.Column="1" Grid.Row="0" />
+      
+      <!-- Art Info -->
+      <Grid HorizontalAlignment="Left" ColumnDefinitions="32, 90, 32, 90" RowDefinitions="*, *" Grid.Column="1" Grid.Row="1" >
+        <PathIcon Data="{StaticResource set_abbriviation_icon}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <TextBlock Text="{Binding MtgCardViewModel.SetAbbriviation}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"  />
+        <PathIcon Data="{StaticResource card_number_icon}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="0"/>
+        <TextBlock Text="{Binding MtgCardViewModel.CardNumber}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="0"  />
+        <PathIcon ToolTip.Tip="Image Width" Data="{StaticResource width_icon}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+        <TextBlock ToolTip.Tip="Image Width" Text="{Binding Width}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1"  />
+        <PathIcon ToolTip.Tip="Image Height" Data="{StaticResource height_icon}" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1"/>
+        <TextBlock ToolTip.Tip="Image Height" Text="{Binding Height}" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"  />
+      </Grid>
+
+      <!-- Download status and destanation -->
+      <Grid HorizontalAlignment="Left" ColumnDefinitions="32, *" RowDefinitions="*" Grid.Column="1" Grid.Row="2">
+        <PathIcon ToolTip.Tip="Status" Data="{StaticResource status_icon}" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0"/>
+        <TextBlock Text="{Binding Status}" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+      </Grid>
+      
+    </Grid>
+  </Border>
+</UserControl>

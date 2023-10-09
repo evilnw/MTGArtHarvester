@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MTGArtHarvester.Views.MainWindow"
+        xmlns:local="using:MTGArtHarvester.Views"
+        xmlns:vm="using:MTGArtHarvester.ViewModels"
+        x:DataType="vm:MainWindowViewModel"
+        Name="WindowContent"
+        Title="MtgArtHarvester">
+  
+  <DockPanel>
+    <Grid Margin="5" ColumnDefinitions="Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Top">
+      <Button ToolTip.Tip="Search Image" Command="{Binding OpenSearchWindow}" Grid.Row="0" Grid.Column="0">
+        <PathIcon Width="25" Height="25" Data="{StaticResource image_search_icon}"/>
+      </Button>
+    </Grid>
+    <Grid Margin="5" ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Bottom">
+      <TextBlock Text="{Binding ArtDownloadViewModel.DestinationFolder}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+      <Button ToolTip.Tip="Select destination folder" Command="{Binding PickDestinationFolder}" Grid.Row="0" Grid.Column="1">
+        <PathIcon Data="{StaticResource folder_add_icon}"/>
+      </Button>
+      <Button ToolTip.Tip="Open destination folder" Command="{Binding OpenDestinationFolder}" Grid.Row="0" Grid.Column="2">
+        <PathIcon Data="{StaticResource folder_open_icon}"/>
+      </Button>
+
+    </Grid>
+
+    <ScrollViewer Background="#F2F2F2" Margin="5 0 5 0" AllowAutoHide="False">
+      <ItemsControl ItemsSource="{Binding ArtDownloadViewModel.Items}" >
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <local:ArtView/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+    
+  </DockPanel>
+</Window>
