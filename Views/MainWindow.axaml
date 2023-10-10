@@ -8,7 +8,8 @@
         xmlns:vm="using:MTGArtHarvester.ViewModels"
         x:DataType="vm:MainWindowViewModel"
         Name="WindowContent"
-        Title="MtgArtHarvester">
+        Icon="/Assets/AppIcon.ico"
+        Title="MTG Art Harvester">
   
   <DockPanel>
     <Grid Margin="5" ColumnDefinitions="Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Top">

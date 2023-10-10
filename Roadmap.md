@@ -2,7 +2,6 @@
 In random order!!!
 
 - add Clear Button(not founded images, low res, etc)
-- add app icons
 - add info https://scryfall.com/docs/syntax to query
 - change font color for download status(Complete, NotFound, InProccess)
 - add open art button
@@ -16,3 +15,5 @@ In random order!!!
 - settings
 -- on\off pseudo random
 -- low res preview image
+
++ add app icons
