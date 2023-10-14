@@ -15,13 +15,13 @@
     <Grid Margin="5" ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Top">
       <TextBox Text="{Binding SearchText}" Grid.Row="0" Grid.Column="0">
         <TextBox.KeyBindings>
-          <KeyBinding Command="{Binding DoSearch}" Gesture="Enter"/>
+          <KeyBinding Command="{Binding DoSearchCommand}" Gesture="Enter"/>
         </TextBox.KeyBindings>
       </TextBox>
-      <Button ToolTip.Tip="Search" Command="{Binding DoSearch}" Margin="5, 0, 5, 0" Grid.Row="0" Grid.Column="1" >
+      <Button ToolTip.Tip="Search" Command="{Binding DoSearchCommand}" Margin="5, 0, 5, 0" Grid.Row="0" Grid.Column="1" >
         <PathIcon Data="{StaticResource search_icon}"/>
       </Button>
-      <Button ToolTip.Tip="Random" Command="{Binding DoRandomSearch}" Grid.Row="0" Grid.Column="2">
+      <Button ToolTip.Tip="Random" Command="{Binding DoRandomSearchCommand}" Grid.Row="0" Grid.Column="2">
         <PathIcon Data="{StaticResource random_icon}"/>
       </Button>
     </Grid>
@@ -30,14 +30,14 @@
     <!-- Queue adding control -->
     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Left" DockPanel.Dock="Bottom">
       <!-- Download selected button -->
-      <Button Command="{Binding AddToDownloadQueueAsync}" Margin="0 0 5 0" HorizontalAlignment="Center">
+      <Button Command="{Binding AddToDownloadQueueCommand}" Margin="0 0 5 0" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
           <PathIcon Margin="0 0 5 0" VerticalAlignment="Center" Data="{StaticResource add_to_queue_icon}"/>
           <TextBlock Text="Download" VerticalAlignment="Center"/>
         </StackPanel>
       </Button>
       <!-- Download all button -->
-      <Button Command="{Binding AddAllToDownloadQueue}" HorizontalAlignment="Center">
+      <Button Command="{Binding AddAllToDownloadQueueCommand}" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
           <PathIcon Margin="0 0 5 0" VerticalAlignment="Center" Data="{StaticResource add_all_to_queue_icon}"/>
           <TextBlock Text="Download All" VerticalAlignment="Center"/>

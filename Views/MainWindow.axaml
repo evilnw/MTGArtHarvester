@@ -12,22 +12,53 @@
         Title="MTG Art Harvester">
   
   <DockPanel>
+    
+    <!-- Header menu -->
+    <!-- <Menu DockPanel.Dock="Top">
+      <MenuItem Header="Search" Command="{Binding OpenSearchWindow}">
+        <MenuItem.Icon>
+          <PathIcon Data="{StaticResource image_search_icon}"/>
+        </MenuItem.Icon>
+      </MenuItem>
+    </Menu> -->
+    
     <Grid Margin="5" ColumnDefinitions="Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Top">
       <Button ToolTip.Tip="Search Image" Command="{Binding OpenSearchWindow}" Grid.Row="0" Grid.Column="0">
         <PathIcon Width="25" Height="25" Data="{StaticResource image_search_icon}"/>
       </Button>
+      <Button ToolTip.Tip="Clear items" Grid.Row="0" Grid.Column="1">
+        <PathIcon Width="25" Height="25" Data="{StaticResource clear_menu_icon}"/>
+        <Button.Flyout>
+          <MenuFlyout Placement="BottomEdgeAlignedLeft">
+            <MenuItem Header="With Status: NotFound"/>
+            <MenuItem Header="Width Less">
+              <MenuItem Header="800"/>
+              <MenuItem Header="1100"/>
+              <MenuItem Header="1500"/>
+            </MenuItem>
+            <MenuItem Header="Height Less">
+              <MenuItem Header="800"/>
+              <MenuItem Header="1100"/>
+              <MenuItem Header="1500"/>
+            </MenuItem>
+          </MenuFlyout>
+        </Button.Flyout>
+      </Button>
+      
     </Grid>
+
+    <!-- Footer menu -->
     <Grid Margin="5" ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Bottom">
       <TextBlock Text="{Binding ArtDownloadViewModel.DestinationFolder}" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
-      <Button ToolTip.Tip="Select destination folder" Command="{Binding PickDestinationFolder}" Grid.Row="0" Grid.Column="1">
+      <Button ToolTip.Tip="Select destination folder" Command="{Binding PickDestinationFolderCommand}" Grid.Row="0" Grid.Column="1">
         <PathIcon Data="{StaticResource folder_add_icon}"/>
       </Button>
-      <Button ToolTip.Tip="Open destination folder" Command="{Binding OpenDestinationFolder}" Grid.Row="0" Grid.Column="2">
+      <Button ToolTip.Tip="Open destination folder" Command="{Binding OpenDestinationFolderCommand}" Grid.Row="0" Grid.Column="2">
         <PathIcon Data="{StaticResource folder_open_icon}"/>
       </Button>
-
     </Grid>
 
+    <!-- Download queue -->
     <ScrollViewer Background="#F2F2F2" Margin="5 0 5 0" AllowAutoHide="False">
       <ItemsControl ItemsSource="{Binding ArtDownloadViewModel.Items}" >
         <ItemsControl.ItemsPanel>

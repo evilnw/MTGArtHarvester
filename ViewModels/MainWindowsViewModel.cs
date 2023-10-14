@@ -7,19 +7,30 @@ using Avalonia.Controls;
 using Avalonia.Platform.Storage;
 using System.Diagnostics;
 using System;
+using MTGArtHarvester.Models;
+using System.Windows.Input;
 
 namespace MTGArtHarvester.ViewModels;
 
 public partial class MainWindowViewModel : BaseViewModel
 {
     public ArtDownloadViewModel ArtDownloadViewModel { get; }
+
+    public ICommand OpenSearchCommand { get; }
+
+    public IAsyncCommand PickDestinationFolderCommand { get; }
+
+    public ICommand OpenDestinationFolderCommand { get; }
     
     public MainWindowViewModel()
     { 
         ArtDownloadViewModel = new ArtDownloadViewModel();
+        OpenSearchCommand = new Command(OpenSearchWindow);
+        PickDestinationFolderCommand = new AsyncCommand(PickDestinationFolder);
+        OpenDestinationFolderCommand = new Command(OpenDestinationFolder);
     }
 
-    public void OpenSearchWindow()
+    private void OpenSearchWindow()
     {
         var searchWindow = new SearchWindow()
         {
@@ -28,7 +39,7 @@ public partial class MainWindowViewModel : BaseViewModel
         searchWindow.Show();
     }
 
-    public async Task PickDestinationFolder()
+    private async Task PickDestinationFolder()
     {
         var mainWindow = ((IClassicDesktopStyleApplicationLifetime)Application.Current!.ApplicationLifetime!).MainWindow;
         var storageProvider = TopLevel.GetTopLevel(mainWindow)!.StorageProvider;
@@ -43,7 +54,7 @@ public partial class MainWindowViewModel : BaseViewModel
         ArtDownloadViewModel.DestinationFolder = folders[0].TryGetLocalPath();
     }
 
-    public void OpenDestinationFolder()
+    private void OpenDestinationFolder()
     {
         if (String.IsNullOrEmpty(ArtDownloadViewModel.DestinationFolder))
         {

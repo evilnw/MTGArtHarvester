@@ -53,6 +53,17 @@ public class ArtDownloadViewModel : BaseViewModel
         artViewModel.SetProperties(downloadResult);
     }
 
+    public async Task RemoveNotFoundItems()
+    {
+        await _semaphoreSlim.WaitAsync();
+
+        Items.Where(artViewModel => artViewModel.Status == "NotFound")
+            .ToList()
+            .ForEach(artViewModel => Items.Remove(artViewModel));
+
+        _semaphoreSlim.Release();
+    }
+
     private string GetDefaultDestinationFolder()
     {
         var downloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");

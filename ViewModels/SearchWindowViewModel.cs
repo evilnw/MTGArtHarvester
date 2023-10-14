@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MTGArtHarvester.Entities;
+using MTGArtHarvester.Models;
 using MTGArtHarvester.Models.Services;
 
 namespace MTGArtHarvester.ViewModels;
@@ -21,6 +22,14 @@ public class SearchWindowViewModel : BaseViewModel
     private MtgCardViewModel? _selectedItem;
 
     public ObservableCollection<MtgCardViewModel> SearchResult { get; }
+
+    public IAsyncCommand DoSearchCommand { get; }
+
+    public IAsyncCommand DoRandomSearchCommand { get; }
+
+    public IAsyncCommand AddToDownloadQueueCommand { get; }
+
+    public IAsyncCommand AddAllToDownloadQueueCommand { get; }
 
     public bool IsBusy 
     {
@@ -42,11 +51,17 @@ public class SearchWindowViewModel : BaseViewModel
     
     public SearchWindowViewModel(Func<MtgCard, Task> addMtgCardAction)
     {
+        DoSearchCommand = new AsyncCommand(DoSearchAsync);
+        DoRandomSearchCommand = new AsyncCommand(DoRandomSearchAsync);
+        AddToDownloadQueueCommand = new AsyncCommand(AddToDownloadQueueAsync);
+        AddAllToDownloadQueueCommand = new AsyncCommand(AddAllToDownloadQueueAsync);
+        //AddAllToDownloadQueueCommand = new Command(async () => await AddAllToDownloadQueueAsync());
+        
         SearchResult = new ObservableCollection<MtgCardViewModel>();
         _addItemAction = addMtgCardAction;
     }
 
-    public async Task DoSearch()
+    private async Task DoSearchAsync()
     {
         IsBusy = true;
         _cancellationTokenSource?.Cancel();
@@ -67,7 +82,7 @@ public class SearchWindowViewModel : BaseViewModel
         IsBusy = false;
     }
 
-    public async Task DoRandomSearch()
+    private async Task DoRandomSearchAsync()
     {
         IsBusy = true;
         _cancellationTokenSource?.Cancel();
@@ -88,7 +103,7 @@ public class SearchWindowViewModel : BaseViewModel
         IsBusy = false;
     }
 
-    public async Task AddToDownloadQueueAsync()
+    private async Task AddToDownloadQueueAsync()
     {
         var selectedItem = SelectedItem;
 
@@ -105,7 +120,7 @@ public class SearchWindowViewModel : BaseViewModel
         await _addItemAction(selectedItem.MtgCard);
     }
 
-    public async Task AddAllToDownloadQueue()
+    private async Task AddAllToDownloadQueueAsync()
     {
         var tasks = SearchResult.Select(async mtgCardVM => 
             {
