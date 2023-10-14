@@ -53,13 +53,23 @@ public class ArtDownloadViewModel : BaseViewModel
         artViewModel.SetProperties(downloadResult);
     }
 
-    public async Task RemoveNotFoundItems()
+    public async Task RemoveItems(Func<ArtViewModel, bool> predicate)
     {
         await _semaphoreSlim.WaitAsync();
 
-        Items.Where(artViewModel => artViewModel.Status == "NotFound")
-            .ToList()
-            .ForEach(artViewModel => Items.Remove(artViewModel));
+        var clearableItem = Items.Where(predicate).ToList();
+        
+        var filePaths = clearableItem
+            .Where(artVM => File.Exists(artVM.FilePath))
+            .Select(artVM => artVM.FilePath)
+            .ToList();
+
+        clearableItem.ForEach(artVM => Items.Remove(artVM));
+
+        await Task.Run( () =>
+        {
+            filePaths.ForEach(filepath => File.Delete(filepath!));
+        });
 
         _semaphoreSlim.Release();
     }

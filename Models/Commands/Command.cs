@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace MTGArtHarvester;
+namespace MTGArtHarvester.Models.Commands;
+
+#pragma warning disable CS0067
 
 public class Command : ICommand
 {

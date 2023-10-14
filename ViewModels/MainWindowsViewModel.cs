@@ -1,14 +1,15 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using System.Linq;
-using MTGArtHarvester.Views;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using System;
-using MTGArtHarvester.Models;
 using System.Windows.Input;
+using MTGArtHarvester.Models;
+using MTGArtHarvester.Views;
+using MTGArtHarvester.Models.Commands;
 
 namespace MTGArtHarvester.ViewModels;
 
@@ -21,6 +22,8 @@ public partial class MainWindowViewModel : BaseViewModel
     public IAsyncCommand PickDestinationFolderCommand { get; }
 
     public ICommand OpenDestinationFolderCommand { get; }
+
+    public IAsyncCommand<string> ClearItemsCommand { get; }
     
     public MainWindowViewModel()
     { 
@@ -28,6 +31,7 @@ public partial class MainWindowViewModel : BaseViewModel
         OpenSearchCommand = new Command(OpenSearchWindow);
         PickDestinationFolderCommand = new AsyncCommand(PickDestinationFolder);
         OpenDestinationFolderCommand = new Command(OpenDestinationFolder);
+        ClearItemsCommand = new AsyncCommand<string>(ClearItems);
     }
 
     private void OpenSearchWindow()
@@ -68,5 +72,27 @@ public partial class MainWindowViewModel : BaseViewModel
                 UseShellExecute = true
             }
         }.Start();
+    }
+
+    private async Task ClearItems(string parameters)
+    {
+        if (parameters.StartsWith("Status:NotFound", StringComparison.OrdinalIgnoreCase))
+        {
+            await ArtDownloadViewModel.RemoveItems((artVM) => { return artVM.Status == "NotFound"; });
+        }
+        else if (parameters.StartsWith("Width:"))
+        {
+            await ArtDownloadViewModel.RemoveItems((artVM) => 
+                { 
+                    return artVM.Width < int.Parse(parameters.Replace("Width:", "")) && artVM.Status == "Completed";
+                });
+        }
+        else if (parameters.StartsWith("Height:"))
+        {
+            await ArtDownloadViewModel.RemoveItems((artVM) => 
+                { 
+                    return artVM.Height < int.Parse(parameters.Replace("Height:", "")) && artVM.Status == "Completed";
+                });
+        }
     }
 }

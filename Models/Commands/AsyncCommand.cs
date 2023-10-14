@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace MTGArtHarvester.Models;
+namespace MTGArtHarvester.Models.Commands;
 
-//#pragma warning disable CS0067
+#pragma warning disable CS0067
+#pragma warning disable CS4014
+#pragma warning disable CS0067
 
 public class AsyncCommand<T> : IAsyncCommand<T>
 {
@@ -44,7 +46,7 @@ public class AsyncCommand<T> : IAsyncCommand<T>
         => _canExecute?.Invoke((T)parameter!) ?? true;
 
     public void Execute(object? parameter)
-        => ExecuteAsync((T)parameter);
+        => ExecuteAsync((T)parameter!);
 }
 
 public class AsyncCommand : IAsyncCommand

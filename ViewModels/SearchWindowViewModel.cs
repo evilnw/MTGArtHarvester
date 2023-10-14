@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MTGArtHarvester.Entities;
 using MTGArtHarvester.Models;
+using MTGArtHarvester.Models.Commands;
 using MTGArtHarvester.Models.Services;
 
 namespace MTGArtHarvester.ViewModels;

@@ -14,37 +14,28 @@
   <DockPanel>
     
     <!-- Header menu -->
-    <!-- <Menu DockPanel.Dock="Top">
-      <MenuItem Header="Search" Command="{Binding OpenSearchWindow}">
-        <MenuItem.Icon>
-          <PathIcon Data="{StaticResource image_search_icon}"/>
-        </MenuItem.Icon>
-      </MenuItem>
-    </Menu> -->
-    
     <Grid Margin="5" ColumnDefinitions="Auto, Auto" RowDefinitions="Auto" DockPanel.Dock="Top">
-      <Button ToolTip.Tip="Search Image" Command="{Binding OpenSearchWindow}" Grid.Row="0" Grid.Column="0">
+      <Button ToolTip.Tip="Search Image" Command="{Binding OpenSearchCommand}" Grid.Row="0" Grid.Column="0">
         <PathIcon Width="25" Height="25" Data="{StaticResource image_search_icon}"/>
       </Button>
       <Button ToolTip.Tip="Clear items" Grid.Row="0" Grid.Column="1">
         <PathIcon Width="25" Height="25" Data="{StaticResource clear_menu_icon}"/>
         <Button.Flyout>
           <MenuFlyout Placement="BottomEdgeAlignedLeft">
-            <MenuItem Header="With Status: NotFound"/>
+            <MenuItem Header="With Status: NotFound" Command="{Binding ClearItemsCommand}" CommandParameter="Status:NotFound"/>
             <MenuItem Header="Width Less">
-              <MenuItem Header="800"/>
-              <MenuItem Header="1100"/>
-              <MenuItem Header="1500"/>
+              <MenuItem Header="600" Command="{Binding ClearItemsCommand}" CommandParameter="Width:600"/>
+              <MenuItem Header="1000" Command="{Binding ClearItemsCommand}" CommandParameter="Width:1000"/>
+              <MenuItem Header="1400" Command="{Binding ClearItemsCommand}" CommandParameter="Width:1400"/>
             </MenuItem>
             <MenuItem Header="Height Less">
-              <MenuItem Header="800"/>
-              <MenuItem Header="1100"/>
-              <MenuItem Header="1500"/>
+              <MenuItem Header="600" Command="{Binding ClearItemsCommand}" CommandParameter="Height:600"/>
+              <MenuItem Header="1000" Command="{Binding ClearItemsCommand}" CommandParameter="Height:1000"/>
+              <MenuItem Header="1400" Command="{Binding ClearItemsCommand}" CommandParameter="Height:1400"/>
             </MenuItem>
           </MenuFlyout>
         </Button.Flyout>
       </Button>
-      
     </Grid>
 
     <!-- Footer menu -->
