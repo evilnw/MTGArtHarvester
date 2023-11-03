@@ -78,20 +78,20 @@ public partial class MainWindowViewModel : BaseViewModel
     {
         if (parameters.StartsWith("Status:NotFound", StringComparison.OrdinalIgnoreCase))
         {
-            await ArtDownloadViewModel.RemoveItems((artVM) => { return artVM.Status == "NotFound"; });
+            await ArtDownloadViewModel.RemoveItems((artVM) => { return artVM.Status == DownloadStatus.NotFound; });
         }
         else if (parameters.StartsWith("Width:"))
         {
             await ArtDownloadViewModel.RemoveItems((artVM) => 
                 { 
-                    return artVM.Width < int.Parse(parameters.Replace("Width:", "")) && artVM.Status == "Completed";
+                    return artVM.Width < int.Parse(parameters.Replace("Width:", "")) && artVM.Status == DownloadStatus.Completed;
                 });
         }
         else if (parameters.StartsWith("Height:"))
         {
             await ArtDownloadViewModel.RemoveItems((artVM) => 
                 { 
-                    return artVM.Height < int.Parse(parameters.Replace("Height:", "")) && artVM.Status == "Completed";
+                    return artVM.Height < int.Parse(parameters.Replace("Height:", "")) && artVM.Status == DownloadStatus.Completed;
                 });
         }
     }

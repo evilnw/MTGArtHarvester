@@ -3,9 +3,11 @@ using System.IO;
 
 namespace MTGArtHarvester.ViewModels;
 
+public enum DownloadStatus { InProgress, Completed, NotFound }
+
 public class ArtViewModel : BaseViewModel
 {
-    private string _status = "InProgress";  // InProgress, Completed, NotFound
+    private DownloadStatus _status = DownloadStatus.InProgress;
     
     private string? _url;
 
@@ -17,7 +19,7 @@ public class ArtViewModel : BaseViewModel
     
     public MtgCardViewModel MtgCardViewModel { get; }
 
-    public string Status
+    public DownloadStatus Status
     {
         get => _status;
         set { _status = value; OnPropertyChanged(); }
@@ -59,7 +61,7 @@ public class ArtViewModel : BaseViewModel
             FilePath = Path.Combine(downloadResult.Folder!, downloadResult.FileName!);
         }
 
-        Status = File.Exists(_filepath) ? "Completed" : "NotFound";
+        Status = File.Exists(_filepath) ? DownloadStatus.Completed : DownloadStatus.NotFound;
 
         Height = downloadResult.Height;
         Width = downloadResult.Width;
