@@ -6,7 +6,6 @@ In random order!!!
 - add open art button
 - add "basic land"(Swamp, Mountean, etc) to search result
 - add pages for search result
-- replace ArtViewModel string status to enum
 - add info to the search window if arts is added to the download queue
 - https://www.mtgpics.com/card?ref=cmm1018 - cmm1080 - set\card correct but art urls incorrect https://www.mtgpics.com/pics/art/gui/156.jpg https://www.mtgpics.com/pics/art/gui/156_1.jpg
 - add pseudo random(more fast, more result)
@@ -18,3 +17,5 @@ In random order!!!
 + add app icons
 + replace methods to commands
 + add Clear Button(not founded images, low res, etc)
++ add Dark theme
++ replace download status to enum
